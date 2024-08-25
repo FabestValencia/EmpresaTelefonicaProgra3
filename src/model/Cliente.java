@@ -1,6 +1,6 @@
 public class Cliente {
     private static int idInstancia = 1;
-    private int id;
+    private String id;
     private String nombre;
     private String direccion;
     private Plan plan;
@@ -13,11 +13,11 @@ public class Cliente {
         this.plan = null;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,41 +43,6 @@ public class Cliente {
 
     public void setPlan(Plan plan) {
         this.plan = plan;
-    }
-
-    public void agregarCliente(String nombre, String numeroIdentificacion, String direccion) {
-        boolean existe = clientes.stream()
-                .anyMatch(cliente -> cliente.getNumeroIdentificacion().equals(numeroIdentificacion));
-
-        if (existe) {
-            System.out.println("El cliente ya existe.");
-        } else {
-            clientes.add(new Cliente(nombre, numeroIdentificacion, direccion));
-            System.out.println("Cliente agregado: " + nombre);
-        }
-    }
-
-    public void modificarCliente(int id, String nuevoNombre, String nuevaIdentificacion, String nuevaDireccion) {
-        clientes.stream()
-                .filter(cliente -> cliente.getId() == id)
-                .findFirst()
-                .ifPresent(cliente -> {
-                    cliente.setNombre(nuevoNombre);
-                    cliente.setNumeroIdentificacion(nuevaIdentificacion);
-                    cliente.setDireccion(nuevaDireccion);
-                });
-    }
-
-    public Optional<Cliente> obtenerClientePorId(int id) {
-        return clientes.stream()
-                .filter(cliente -> cliente.getId() == id)
-                .findFirst();
-    }
-
-    public void eliminarCliente(int id) {
-        clientes = clientes.stream()
-                .filter(cliente -> cliente.getId() != id)
-                .collect(Collectors.toList());
     }
 
     public void asignarPlan(Plan plan) {
